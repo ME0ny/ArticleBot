@@ -8,13 +8,12 @@ import requests
 import json
 
 app = Flask(__name__)
-data = SecretData ()
+data = SecretData()
 token = data.token
 domen = data.domen
 
 URL = 'https://api.telegram.org/bot' + token + '/'
 number = 0
-
 def write_json(data, filename = 'answer.json'):
     with open(filename, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent = 2, ensure_ascii = False)
@@ -27,7 +26,7 @@ def send_message(chat_id, text = "неверный текст"):
 
 def send_photo(chat_id, path):
     url = URL + 'sendPhoto'
-    files = {'photo': open('/path/to/img.jpg', 'rb')}
+    files = {'photo': open('1.png', 'rb')}
     answer = {'chat_id': chat_id}
     r = requests.post(url, files = files, data = answer)
     return r.json()
@@ -42,14 +41,11 @@ def index():
         if (valid_data[0] == False):
             send_message(chat_id, text = valid_data[1])
         else:
-            number+=1
             path = create_image(quantity = valid_data[1]['quantity'],
                         price = valid_data[1]['price'], 
                         artical = valid_data[1]['artical'], 
-                        title = valid_data[1]['title'],
-                        name = number)
+                        title = valid_data[1]['title'])
             write_json(send_photo(chat_id, path))
-            number-=1
         return jsonify(r)
     return '<h1>Welcome</h1>'
 

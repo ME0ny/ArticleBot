@@ -26,12 +26,12 @@ class Generate:
             self.draw.text((308 - w, 214 - self.size[quantity] + self.between_block * i), text = price[i], fill = "black", font = self.font_price)
             self.draw.text((314, 214 - self.size[quantity] + self.between_block * i), text = "i", fill = "black", font = self.font_rub)
     
-    def show(self, name):
+    def show(self):
         print(type(self.img))
-        self.img.save(name + '.png')
-        return (name + '.png')
+        self.img.save('1' + '.png')
+        return ('1' + '.png')
 
-def create_image(quantity, price, artical, title, name):
+def create_image(quantity, price, artical, title):
     img = Generate()
     img.draw_content(quantity, price, artical, title)
-    return (img.show(name))
+    return (img.show())
