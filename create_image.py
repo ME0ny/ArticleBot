@@ -15,7 +15,7 @@ class Generate:
 
     def draw_content(self, quantity, price, artical, title):
         price = [str(i) for i in price]
-        artical = ["арт. "+ str (i) for i in artical]
+        artical = ["арт. " + str (i) for i in artical]
         for i in range(quantity):
             self.draw.rounded_rectangle([(17, 193 - self.size[quantity] + self.between_block * i),
                 (343,253 - self.size[quantity] + self.between_block * i)],
@@ -26,11 +26,12 @@ class Generate:
             self.draw.text((308 - w, 214 - self.size[quantity] + self.between_block * i), text = price[i], fill = "black", font = self.font_price)
             self.draw.text((314, 214 - self.size[quantity] + self.between_block * i), text = "i", fill = "black", font = self.font_rub)
     
-    def show(self):
+    def show(self, name):
         print(type(self.img))
-        self.img.save('pil_text.png')
+        self.img.save(name + '.png')
+        return (name + '.png')
 
-img = Generate()
-img.draw_content(4, [711, 6500, 2599, 2990], [11, 123, 15, 164],
-["Платок", "Пиджка", "Футболка", "Джинсы"])
-img.show()
+def create_image(quantity, price, artical, title, name):
+    img = Generate()
+    img.draw_content(quantity, price, artical, title)
+    return (img.show(name))
