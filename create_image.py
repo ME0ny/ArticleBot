@@ -1,11 +1,10 @@
 from PIL import Image, ImageDraw, ImageFont
-from io import BytesIO
 
 class Generate:
     def __init__(self, background = (255, 230, 224), size = (360, 446)):
         self.font_title = ImageFont.truetype("font/Comfortaa-Regular.ttf", 18)
         self.font_art = ImageFont.truetype("font/Comfortaa-Regular.ttf", 9)
-        self.rouble = Image.open('rouble.png', 'r')
+        self.font_rub = ImageFont.truetype("/home/PriceBot/bot/font/rouble.ttf", 22)
         self.font_price = ImageFont.truetype("font/Comfortaa-Regular.ttf", 22)
 
         self.size = [0, 0, 36, 72, 108, 147]
@@ -25,8 +24,8 @@ class Generate:
             self.draw.text((33,234 - self.size[quantity] + self.between_block * i), text = artical[i], fill = "gray", font = self.font_art)
             w, h = self.font_price.getsize(price[i])
             self.draw.text((308 - w, 214 - self.size[quantity] + self.between_block * i), text = price[i], fill = "black", font = self.font_price)
-            self.img.paste(self.rouble, (315,215))
-    
+            self.draw.text((314, 214 - self.size[quantity] + self.between_block * i), text = "i", fill = "black", font = self.font_rub)
+
     def show(self):
         self.img.save('1' + '.png')
         return ('1' + '.png')
