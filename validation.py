@@ -8,8 +8,7 @@ def validation(message):
     title = []
     for i in range(count):
         messages[i] = messages[i].split(',')
-        print(messages[i], len(messages[i]))
-        if (len(messages[i]) < 3):
+        if (len(messages[i]) != 3):
             return ([False, "неверный ввод данных\nНазвание товара, артикул, цена"])
         if (len(messages[i][0].strip()) > 13):
             return ([False, "слишком длинное название"])
