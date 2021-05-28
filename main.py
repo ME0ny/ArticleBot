@@ -39,10 +39,13 @@ def index():
         r = request.get_json()
         if r.get('message') == None:
             return 'error'
+        if r['message'].get('text') == None:
+            send_message(r['message']['chat']['id'], text = "Неверные данные, введите текст")
+            return 'error'
         chat_id = r['message']['chat']['id']
         message = r['message']['text']
         if (message == "/start" or message == "/help"):
-             send_message(chat_id, text = 
+             send_message(chat_id, text =
              "Привет!\nЧасто в магазинах вместо цен пишут *«ответили в директ»*.\n\nМы придумали добавлять к каждой фотке в слайдер картинку с ценами.\n\nЭтот бот выдаёт картинку для ленты с автоматически вставленным текстом.\n\nНужно только написать название, артикул, цену.\nПример: Шапка, 123, 1000")
         else:
             valid_data = validation(message)
@@ -50,8 +53,8 @@ def index():
                 send_message(chat_id, text = valid_data[1])
             else:
                 path = create_image(quantity = valid_data[1]['quantity'],
-                            price = valid_data[1]['price'], 
-                            artical = valid_data[1]['artical'], 
+                            price = valid_data[1]['price'],
+                            artical = valid_data[1]['artical'],
                             title = valid_data[1]['title'])
                 send_photo(chat_id, path)
         return jsonify(r)
